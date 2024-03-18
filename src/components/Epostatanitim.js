@@ -21,7 +21,7 @@ export default function EpostaTanitim() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    fetch('https://localhost:44331/api/EpostaAdresi/EpostaAdresiEkle', {
+    fetch('https://localhost:7012/api/EpostaAdresi/EpostaAdresiEkle', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

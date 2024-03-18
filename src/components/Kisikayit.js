@@ -25,7 +25,7 @@ function Kisikayit() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    fetch('https://localhost:44331/api/Kisi/KisiEkle', {
+    fetch('https://localhost:7012/api/Kisi/KisiEkle', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -94,10 +94,10 @@ function Kisikayit() {
           </Grid>
           <Grid item xs={6}>
             <TextField
-              label="Doğum Tarihi"
-              name="dogumTarihi"
-              type="date"
-              value={formData.dogumTarihi}
+              label="Yas"
+              name="yas"
+              type="number"
+              value={formData.yas}
               onChange={handleChange}
               fullWidth
               required

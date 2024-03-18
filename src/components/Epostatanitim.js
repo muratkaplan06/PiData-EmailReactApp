@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { TextField, Button, Typography, Container, Grid } from '@mui/material'
+import {
+  TextField,
+  Button,
+  Typography,
+  Container,
+  Grid,
+  Snackbar,
+} from '@mui/material'
 
 export default function EpostaTanitim() {
   const [formData, setFormData] = useState({
@@ -9,6 +16,8 @@ export default function EpostaTanitim() {
     sifre: '',
     port: 0,
   })
+
+  const [openSnackbar, setOpenSnackbar] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -31,10 +40,22 @@ export default function EpostaTanitim() {
       .then((response) => response.json())
       .then((data) => {
         console.log('API response:', data)
+        setOpenSnackbar(true)
+        setFormData({
+          adres: '',
+          mailSunucuAdresi: '',
+          kullaniciAdi: '',
+          sifre: '',
+          port: 0,
+        })
       })
       .catch((error) => {
         console.error('API error:', error)
       })
+  }
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false)
   }
 
   return (
@@ -108,6 +129,17 @@ export default function EpostaTanitim() {
           </Grid>
         </Grid>
       </form>
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message="Eposta tanıtıldı."
+      />
     </Container>
   )
 }

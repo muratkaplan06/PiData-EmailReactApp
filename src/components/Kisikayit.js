@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { TextField, Button, Typography, Container, Grid } from '@mui/material'
+import {
+  TextField,
+  Button,
+  Typography,
+  Container,
+  Grid,
+  Snackbar,
+} from '@mui/material'
 
 function Kisikayit() {
   const [formData, setFormData] = useState({
@@ -13,6 +20,8 @@ function Kisikayit() {
     unvan: '',
     isyeri: '',
   })
+
+  const [openSnackbar, setOpenSnackbar] = useState(false) // State for Snackbar
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -35,10 +44,27 @@ function Kisikayit() {
       .then((response) => response.json())
       .then((data) => {
         console.log('API response:', data)
+        setOpenSnackbar(true) // Open Snackbar when submission is successful
+        setFormData({
+          // Clear the form after successful submission
+          ad: '',
+          soyad: '',
+          telefon: '',
+          eposta: '',
+          dogumTarihi: '',
+          epostaAdresi: '',
+          cinsiyet: '',
+          unvan: '',
+          isyeri: '',
+        })
       })
       .catch((error) => {
         console.error('API error:', error)
       })
+  }
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false)
   }
 
   return (
@@ -137,6 +163,16 @@ function Kisikayit() {
           </Grid>
         </Grid>
       </form>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message="Kişi kaydedildi."
+      />
     </Container>
   )
 }

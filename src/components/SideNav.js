@@ -17,10 +17,11 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { AiFillHome } from 'react-icons/ai'
-import { BsFillPersonFill, BsPeopleFill } from 'react-icons/bs'
+import { BsPeopleFill } from 'react-icons/bs'
 import Home from './Home'
-import { RiProductHuntLine } from 'react-icons/ri'
-import { FcServices } from 'react-icons/fc'
+import { FiMail } from 'react-icons/fi'
+import { FiSend } from 'react-icons/fi'
+import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import Epostatanitim from './Epostatanitim'
 import Kisikayit from './Kisikayit'
 import Epostagonderim from './Epostagonderim'
@@ -180,7 +181,7 @@ export default function SideNav() {
                     justifyContent: 'center',
                   }}
                 >
-                  <BsPeopleFill />
+                  <FiMail />
                 </ListItemIcon>
                 <ListItemText
                   primary="Epostatanitim"
@@ -207,7 +208,7 @@ export default function SideNav() {
                     justifyContent: 'center',
                   }}
                 >
-                  <RiProductHuntLine />
+                  <BsPeopleFill />
                 </ListItemIcon>
                 <ListItemText
                   primary="Kisikayit"
@@ -234,7 +235,7 @@ export default function SideNav() {
                     justifyContent: 'center',
                   }}
                 >
-                  <FcServices />
+                  <FiSend />
                 </ListItemIcon>
                 <ListItemText
                   primary="Epostagonderim"
@@ -261,7 +262,7 @@ export default function SideNav() {
                     justifyContent: 'center',
                   }}
                 >
-                  <BsFillPersonFill />
+                  <TrendingUpIcon />
                 </ListItemIcon>
                 <ListItemText
                   primary="Raporlama"

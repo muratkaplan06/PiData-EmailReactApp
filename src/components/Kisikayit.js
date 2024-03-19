@@ -6,6 +6,10 @@ import {
   Container,
   Grid,
   Snackbar,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
 } from '@mui/material'
 
 function Kisikayit() {
@@ -130,13 +134,18 @@ function Kisikayit() {
             />
           </Grid>
           <Grid item xs={6}>
-            <TextField
-              label="Cinsiyet"
-              name="cinsiyet"
-              value={formData.cinsiyet}
-              onChange={handleChange}
-              fullWidth
-            />
+            <FormControl fullWidth>
+              <InputLabel id="cinsiyet-label">Cinsiyet</InputLabel>
+              <Select
+                labelId="cinsiyet-label"
+                id="cinsiyet-select"
+                value={formData.cinsiyet}
+                onChange={handleChange}
+              >
+                <MenuItem value="Erkek">Erkek</MenuItem>
+                <MenuItem value="Kadın">Kadın</MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={6}>
             <TextField

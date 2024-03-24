@@ -14,6 +14,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Snackbar,
 } from '@mui/material'
 
 function Epostagonderim() {
@@ -25,6 +26,9 @@ function Epostagonderim() {
   })
   const [gonderenEmail, setGonderenEmail] = useState('')
   const [epostaAdresleri, setEpostaAdresleri] = useState([])
+  const [epostaIcerik, setEpostaIcerik] = useState('')
+  const [epostaKonu, setEpostaKonu] = useState('')
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
 
   useEffect(() => {
     fetchKisiler()
@@ -68,17 +72,26 @@ function Epostagonderim() {
     try {
       const epostaBilgileri = {
         konu: 'E-posta Konusu',
-        icerik: 'E-posta İçeriği',
+        icerik: epostaIcerik,
         gonderenEmail: gonderenEmail,
-        kisiler: kisiler.map((kisi) => kisi.email), // E-posta gönderilecek kişilerin e-posta adreslerini al
+        kisiListesiIds: kisiler.map((kisi) => kisi.id),
       }
-
+      console.log('E-posta bilgileri:', epostaBilgileri)
       const response = await axios.post(
-        'https://localhost:7012/api/Eposta/Gonder',
+        'https://localhost:7012/api/EpostaAdresiGonderim/Gonder',
         epostaBilgileri,
       )
 
       console.log('E-posta gönderme başarılı:', response.data)
+
+      // Form alanlarını sıfırla
+      setEpostaKonu('')
+      setGonderenEmail('')
+      setEpostaIcerik('')
+      setKisiler([])
+
+      // Snackbar'ı aç
+      setSnackbarOpen(true)
     } catch (error) {
       console.error('Error sending e-posta:', error)
     }
@@ -90,6 +103,18 @@ function Epostagonderim() {
 
   const handleGonderenEmailChange = (e) => {
     setGonderenEmail(e.target.value)
+  }
+
+  const handleIcerikChange = (e) => {
+    setEpostaIcerik(e.target.value)
+  }
+
+  const handleKonuChange = (e) => {
+    setEpostaKonu(e.target.value)
+  }
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false)
   }
 
   return (
@@ -170,7 +195,8 @@ function Epostagonderim() {
               <TextField
                 label="Konu"
                 name="konu"
-                onChange={handleChange}
+                value={epostaKonu}
+                onChange={handleKonuChange}
                 fullWidth
               />
             </Grid>
@@ -185,12 +211,9 @@ function Epostagonderim() {
                   value={gonderenEmail}
                   onChange={handleGonderenEmailChange}
                 >
-                  {epostaAdresleri.map((epostaAdresi) => (
-                    <MenuItem
-                      key={epostaAdresi.adres}
-                      value={epostaAdresi.adres}
-                    >
-                      {epostaAdresi.adres}
+                  {epostaAdresleri.map((epostaAdres) => (
+                    <MenuItem key={epostaAdres.id} value={epostaAdres.adres}>
+                      {epostaAdres.adres}
                     </MenuItem>
                   ))}
                 </Select>
@@ -200,7 +223,8 @@ function Epostagonderim() {
               <TextField
                 label="İçerik"
                 name="icerik"
-                onChange={handleChange}
+                value={epostaIcerik}
+                onChange={handleIcerikChange}
                 fullWidth
                 multiline
                 rows={4}
@@ -212,12 +236,18 @@ function Epostagonderim() {
                 color="primary"
                 onClick={handleEpostaGonder}
               >
-                Gönder
+                E-posta Gönder
               </Button>
             </Grid>
           </Grid>
         </div>
       </div>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message="E-posta başarıyla gönderildi."
+      />
     </div>
   )
 }

@@ -18,14 +18,13 @@ function Kisikayit() {
     soyad: '',
     telefon: '',
     eposta: '',
-    dogumTarihi: '',
-    epostaAdresi: '',
-    cinsiyet: '',
+    yas: '',
+    cinsiyet: '', // Cinsiyet alanı eklendi
     unvan: '',
     isyeri: '',
   })
 
-  const [openSnackbar, setOpenSnackbar] = useState(false) // State for Snackbar
+  const [openSnackbar, setOpenSnackbar] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -37,7 +36,6 @@ function Kisikayit() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
     fetch('https://localhost:7012/api/Kisi/KisiEkle', {
       method: 'POST',
       headers: {
@@ -48,15 +46,13 @@ function Kisikayit() {
       .then((response) => response.json())
       .then((data) => {
         console.log('API response:', data)
-        setOpenSnackbar(true) // Open Snackbar when submission is successful
+        setOpenSnackbar(true)
         setFormData({
-          // Clear the form after successful submission
           ad: '',
           soyad: '',
           telefon: '',
           eposta: '',
-          dogumTarihi: '',
-          epostaAdresi: '',
+          yas: '',
           cinsiyet: '',
           unvan: '',
           isyeri: '',
@@ -124,7 +120,7 @@ function Kisikayit() {
           </Grid>
           <Grid item xs={6}>
             <TextField
-              label="Yas"
+              label="Yaş"
               name="yas"
               type="number"
               value={formData.yas}
@@ -141,6 +137,8 @@ function Kisikayit() {
                 id="cinsiyet-select"
                 value={formData.cinsiyet}
                 onChange={handleChange}
+                name="cinsiyet"
+                required // Cinsiyet alanı gerekli olduğu belirtildi
               >
                 <MenuItem value="Erkek">Erkek</MenuItem>
                 <MenuItem value="Kadın">Kadın</MenuItem>
